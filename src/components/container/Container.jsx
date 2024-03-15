@@ -12,7 +12,7 @@ const Container = () => {
     }, [])
     return (
         <div className="flex container mx-auto my-14">
-            <div className="md:w-2/3 grid md:grid-cols-2 gap-10">
+            <div className="lg:w-2/3 grid lg:grid-cols-2 gap-10">
                 {
                     products.map(product => <Product
                         key={product.id}
@@ -20,7 +20,7 @@ const Container = () => {
                     ></Product>)
                 }
             </div>
-            <div className="md:w-1/3">
+            <div className="lg:w-1/3">
 
             </div>
         </div>
