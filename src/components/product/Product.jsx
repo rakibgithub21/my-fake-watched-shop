@@ -6,12 +6,12 @@ import { MdShoppingCartCheckout } from "react-icons/md";
 
 
 
-const Product = ({ product }) => {
+const Product = ({ product, addToBookMarked }) => {
     const { image_url, description, model, warranty, storage, brand, price, processor, ram, water_resistant, gps, heart_rate_monitor, os, charging, features,
     } = product;
-    console.log(product);
+    // console.log(product);
     return (
-        <div className="card card-compact  bg-base-100 shadow-xl">
+        <div className="card card-compact  bg-base-100 shadow-xl border rounded-lg">
             <figure><img className="w-44" src={image_url} alt="Shoes" /></figure>
             <div className="card-body">
                 <p className="text-3xl font-semibold">{model}</p>
@@ -28,10 +28,10 @@ const Product = ({ product }) => {
                     <p className="font-semibold"><span className="underline">Charging :</span> <span className="font-normal">{charging ? charging : 'Not available'}</span></p>
                     <p className="font-semibold"><span className="underline">OS:</span> <span className="font-normal">{os ? os : 'Not available'}</span></p>
                 </div>
-                <div className="md:flex hidden gap-2 ">
+                <div>
                     <span className="font-bold">Feature: </span>
                     {
-                        features.map((feature, index) => <span className="font-medium underline"
+                        features.map((feature, index) => <span className="font-medium ml-5 underline"
                             key={index}
                         >{feature}</span>)
                     }
@@ -40,10 +40,10 @@ const Product = ({ product }) => {
                     <p className="flex items-center gap-1 font-bold">Water Proof: {water_resistant ? <IoMdCheckmark className="text-green-700" /> : <FaXmark className="text-red-600" />}</p>
                     <p className="flex items-center gap-1 font-bold">Heart Monitor: {heart_rate_monitor ? <IoMdCheckmark className="text-green-700" /> : <FaXmark className="text-red-600" />}</p>
                     <p className="flex items-center gap-1 font-bold">GPS: {gps ? <IoMdCheckmark className="text-green-700" /> : <FaXmark className="text-red-600" />}</p>
-                    
+
                 </div>
                 <div className="card-actions justify-end">
-                    <button className="btn btn-accent font-bold btn-outline ">Add To Cart <MdShoppingCartCheckout className="text-xl" /></button>
+                    <button onClick={() => addToBookMarked(product)} className="btn btn-accent font-bold btn-outline ">Add To Cart <MdShoppingCartCheckout className="text-xl" /></button>
 
                 </div>
             </div>
@@ -53,6 +53,7 @@ const Product = ({ product }) => {
 };
 Product.propTypes = {
     product: PropTypes.object,
+    addToBookMarked: PropTypes.func,
 };
 
 export default Product;
