@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import Product from "../product/Product";
 import Table from "../../table/Table";
+import { addToLS, getStoredCart, removeFromLS } from "../../utilities/utils";
 
 
 const Container = () => {
@@ -12,14 +13,29 @@ const Container = () => {
             .then(data => setProducts(data))
     }, [])
 
-    const [cart, setcart] = useState([])
+
+    useEffect(() => {
+        if (products.length) {
+            const storedCart = getStoredCart();
+            let savedCart = [];
+            for (const id of storedCart) {
+                const isExists = products.find(product => product.id === id);
+                savedCart.push(isExists);
+            }
+            setcart(savedCart)
+        }
+    },[products])
+
+    const [cart, setcart] = useState([]);
+
     const addToBookMarked = (product) => {
 
         if (cart.includes(product)) {
             alert('You already select this')
         } else {
             const newCart = [...cart, product];
-            setcart(newCart)
+            setcart(newCart);
+            addToLS(product.id)
         }
 
     }
@@ -33,7 +49,8 @@ const Container = () => {
     const addDeleteButton = (product) => {
         console.log(product);
         const matched = cart.filter(pd => pd.id !== product.id)
-        setcart(matched)
+        setcart(matched);
+        removeFromLS(product.id)
     }
 
 
